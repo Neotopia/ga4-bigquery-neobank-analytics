@@ -2,6 +2,7 @@
 -- FILE 01 : GA4 Schema Exploration
 -- ============================================================
 -- Dataset : bigquery-public-data.ga4_obfuscated_sample_ecommerce
+-- Details : Only ecommerce data from 2020 available
 -- Goal    : Understand the GA4 BigQuery export schema before
 --           writing analytical queries.
 --
@@ -85,3 +86,37 @@ FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
 WHERE _TABLE_SUFFIX = '20201101'
   AND event_name = 'page_view'
 LIMIT 20;
+
+
+-- ============================================================
+-- QUERY 3 — Event inventory
+-- Event Volume: Top events by count, unique users, and date range. E-commerce data available (purchase event).
+-- ============================================================
+
+SELECT
+  event_name,
+  COUNT(*)                             AS event_count,
+  COUNT(DISTINCT user_pseudo_id)       AS unique_users,
+  MIN(PARSE_DATE('%Y%m%d', event_date)) AS first_seen,
+  MAX(PARSE_DATE('%Y%m%d', event_date)) AS last_seen
+FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
+GROUP BY event_name
+ORDER BY event_count DESC;
+
+
+-- ============================================================
+-- QUERY 4 — Evolution of actif users and purchases over time
+-- ============================================================
+
+SELECT
+  PARSE_DATE('%Y%m%d', event_date)     AS date,
+  COUNT(*)                             AS total_events,
+  COUNT(DISTINCT user_pseudo_id)       AS daily_active_users,
+  COUNTIF(event_name = 'session_start') AS sessions,
+  COUNTIF(event_name = 'purchase')     AS purchases
+FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
+GROUP BY date
+ORDER BY date;
+
