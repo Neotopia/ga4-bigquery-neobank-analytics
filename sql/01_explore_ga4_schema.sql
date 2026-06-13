@@ -120,3 +120,43 @@ WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
 GROUP BY date
 ORDER BY date;
 
+
+-- ============================================================
+-- QUERY 5 — Session conversion and revenue
+-- ============================================================
+
+SELECT
+  user_pseudo_id,
+
+  -- ga_session_id is stored inside event_params
+  (SELECT value.int_value
+   FROM UNNEST(event_params)
+   WHERE key = 'ga_session_id')                       AS session_id,
+
+  PARSE_DATE('%Y%m%d', event_date)                    AS session_date,
+  traffic_source.source                               AS source,
+  traffic_source.medium                               AS medium,
+  device.category                                     AS device,
+  geo.country                                         AS country,
+
+  COUNT(*) AS events_in_session,
+
+  -- Session contained a purchase?
+  COUNTIF(event_name = 'purchase') > 0                AS converted,
+
+  -- Total revenue in session (items array, not event_params)
+  ROUND(SUM(ecommerce.purchase_revenue), 2)           AS session_revenue
+
+FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+WHERE _TABLE_SUFFIX BETWEEN '20201101' AND '20210131'
+GROUP BY
+  user_pseudo_id,
+  session_id,
+  session_date,
+  source,
+  medium,
+  device,
+  country
+HAVING session_id IS NOT NULL
+ORDER BY session_date, session_revenue DESC
+LIMIT 100;
