@@ -50,4 +50,4 @@ ga4-bigquery-neobank-analytics/
 ## Author
 
 **Lisa Momas** — Digital Analytics & Data  
-[LinkedIn](https://www.linkedin.com/in/lisa-momas-69518b177)
+[LinkedIn](https://www.linkedin.com/in/lisa-momas)
