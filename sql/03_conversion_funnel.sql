@@ -6,11 +6,11 @@
 --           conversion and identify where users drop off.
 --
 -- Business context :
---   In a neobank, the funnel is typically:
---     Landing page → Product page → Sign-up start → KYC → Account opened
---   In this GA4 e-commerce dataset, the equivalent is:
+--   E-commerce conversion funnels measure where users drop off between
+--   their first visit and a completed purchase.
+--   This dataset maps the full journey:
 --     session_start → view_item → add_to_cart → begin_checkout → purchase
---   The SQL patterns are identical — only the event names change.
+--   Identifying the biggest drop-off step guides UX and product decisions.
 --
 -- 💡 How to run: copy the full query into BigQuery and click Run.
 -- ============================================================
@@ -33,7 +33,7 @@ SELECT
   -- Conversion rates step by step
   ROUND(
     COUNT(DISTINCT CASE WHEN event_name = 'view_item' THEN user_pseudo_id END)
-    / COUNT(DISTINCT CASE WHEN event_name = 'session_start' THEN user_pseudo_id END) * 100,
+     / NULLIF(COUNT(DISTINCT CASE WHEN event_name = 'session_start' THEN user_pseudo_id END), 0) * 100,
     1
   ) AS pct_to_view_item,
 
@@ -109,7 +109,7 @@ ORDER BY sessions DESC;
 -- QUERY 3 — Funnel by device category
 --
 -- Business question: do mobile users convert at a lower rate?
--- Common finding in fintech: mobile drives volume, desktop drives conversion.
+-- Common finding in e-commerce: mobile drives volume, desktop drives conversion.
 -- ============================================================
 
 WITH user_events AS (

@@ -3,8 +3,8 @@
 -- ============================================================
 -- Dataset : bigquery-public-data.ga4_obfuscated_sample_ecommerce
 -- Goal    : Combine acquisition, conversion, and retention signals
---           into actionable executive KPIs, as a neobank analyst
---           would prepare for a weekly business review.
+--           into actionable executive KPIs for an e-commerce business
+--           — the kind of summary prepared for a weekly growth review.
 --
 -- 💡 How to run: copy the full query into BigQuery and click Run.
 -- ============================================================
@@ -14,7 +14,7 @@
 -- Q1 — Weekly acquisition & conversion summary
 --
 -- Business question: what does our growth look like week over week?
--- This is the top-level slide in a neobank's growth review.
+-- This is the top-level view in a weekly e-commerce growth review.
 -- ============================================================
 
 WITH weekly_metrics AS (
@@ -118,7 +118,7 @@ ORDER BY channel_total_revenue DESC;
 --
 -- Business question: which users are "stuck" in the funnel —
 -- engaged enough to add to cart but never completed a purchase?
--- In neobank terms: users who started onboarding but dropped off.
+-- In e-commerce terms: users who showed purchase intent but never completed checkout.
 -- These are the highest-value re-engagement targets.
 -- ============================================================
 

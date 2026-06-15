@@ -3,14 +3,14 @@
 -- ============================================================
 -- Dataset : bigquery-public-data.ga4_obfuscated_sample_ecommerce
 -- Goal    : Analyse traffic sources and channel performance —
---           the equivalent of a neobank's acquisition dashboard.
+--           understanding which channels drive volume, engagement,
+--           and revenue for an e-commerce store.
 --
 -- Business context :
---   Every neobank tracks CAC (Customer Acquisition Cost) by channel.
+--   E-commerce teams track channel efficiency to allocate marketing spend.
 --   This file answers: which channels bring the most users,
---   the most engaged sessions, and the most conversions?
---   The same logic applies whether the conversion is a purchase
---   (e-commerce) or an account opening (neobank).
+--   the most engaged sessions, and the most conversions (purchases)?
+--   Key metrics: sessions, conversion rate, revenue, average order value.
 --
 -- 💡 How to run: copy the full query into BigQuery and click Run.
 -- ============================================================
@@ -110,9 +110,9 @@ LIMIT 20;
 -- ============================================================
 -- QUERY 3 — New vs returning users by channel
 --
--- Business context : in neobank analytics, new user acquisition
+-- Business context : in e-commerce analytics, new user acquisition
 --   is tracked separately from returning user engagement.
---   High returning-user rate = strong product retention.
+--   High returning-user rate = strong brand loyalty and repeat purchase behaviour.
 -- ============================================================
 
 SELECT

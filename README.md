@@ -11,7 +11,7 @@ Built to demonstrate the intersection of **Digital Analytics** and **Data Analyt
 
 ## Why this project
 
-BigQuery pipelines to understand user acquisition, product funnel performance, and retention. This project demonstrates the full analytics stack a digital analyst would own in that context.
+End-to-end SQL analysis of GA4 e-commerce event data in BigQuery — covering acquisition, funnel performance, and cohort retention. Built to demonstrate the kind of analytical work a digital analyst owns: from raw event data to business-ready KPIs.
 
 ---
 
@@ -58,9 +58,9 @@ ga4-bigquery-neobank-analytics/
 |---|---|---|
 | Q1 | Which acquisition channels drive the most engaged users? | Marketing budget allocation |
 | Q2 | Where do users drop off in the conversion funnel? | Product & UX optimisation |
-| Q3 | What does weekly retention look like by acquisition cohort? | Growth & engagement KPIs |
+| Q3 | What does weekly retention look like by acquisition cohort? | Growth & repeat purchase KPIs |
 | Q4 | Which user segments have the highest revenue potential? | LTV-based targeting |
-| Q5 | What signals predict churn before it happens? | Proactive retention |
+| Q5 | Which users showed purchase intent but never converted? | Re-engagement prioritisation |
 
 ---
 

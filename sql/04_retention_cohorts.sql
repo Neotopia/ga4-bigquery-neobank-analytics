@@ -6,11 +6,11 @@
 --           grouped by the week they first appeared (acquisition cohort).
 --
 -- Business context :
---   Retention is the most important growth metric for neobanks.
---   A user who opens an account but never logs in again is worthless.
+--   Retention is one of the most important growth metrics in e-commerce.
+--   A user who visits once and never returns generates no long-term value.
 --   This analysis answers: of the users acquired in week W,
 --   how many came back in W+1, W+2, W+3?
---   In e-commerce terms: first purchase → repeat purchase.
+--   For purchasing cohorts: first purchase → repeat purchase behaviour.
 --
 -- Technique : CTE to define cohorts, then LEFT JOIN to match
 --             return activity, DATE_DIFF to compute weeks since first visit.
@@ -98,7 +98,7 @@ ORDER BY cohort_week;
 --
 -- Business question: of users who made a first purchase in week W,
 -- how many came back to purchase again?
--- Equivalent to: neobank users who activated → re-engaged with product.
+-- Equivalent to: measuring repeat purchase loyalty after a first order.
 -- ============================================================
 
 WITH
